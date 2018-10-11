@@ -1,0 +1,16 @@
+version: '2.1'
+services:
+  webapp:
+    image: repo.cfhn.it/mycfhn/frontend/webapp
+    networks:
+      - traefik_net
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: "traefik_net"
+      traefik.port: "80"
+      traefik.frontend.rule: "Host:my.cfhn.it"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost"]
+networks:
+  traefik_net:
+    external: true
