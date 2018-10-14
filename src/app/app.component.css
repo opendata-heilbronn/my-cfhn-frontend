@@ -1,3 +1,16 @@
 .bg-cfhn {
 	background-color: #ff867f
 }
+
+.full-height, .full-height .row {
+	min-height: 100vh;
+}
+
+.cfhn-brand {
+	color: white;
+}
+
+@media (max-width: 768px) {
+	.cfhn-navigation {
+	}
+}

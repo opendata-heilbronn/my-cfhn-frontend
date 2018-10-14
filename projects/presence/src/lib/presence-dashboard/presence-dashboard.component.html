@@ -1,3 +1,10 @@
 <div class="card w-100">
-	Presence dashboard component!
+	<div class="card-header">
+		Anwesenheit
+	</div>
+	<div class="card-body">
+		<div *ngFor="let member of members">
+			{{member.name}}
+		</div>
+	</div>
 </div>

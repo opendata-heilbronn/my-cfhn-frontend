@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 
 @Component({
 	selector: 'app-root',
@@ -6,5 +6,14 @@ import {Component} from '@angular/core';
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	public isNavbarCollapsed: boolean = true;
+	public isNavbarCollapsed: boolean = window.innerWidth < 768;
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event) {
+		this.isNavbarCollapsed = this.shouldHide();
+	}
+
+	private shouldHide() {
+		return window.innerWidth >= 768 ? false : this.isNavbarCollapsed;
+	}
 }

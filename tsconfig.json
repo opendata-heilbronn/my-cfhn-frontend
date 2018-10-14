@@ -29,6 +29,12 @@
       ],
       "dashboard/*": [
         "dist/dashboard/*"
+      ],
+      "authentication": [
+        "dist/authentication"
+      ],
+      "authentication/*": [
+        "dist/authentication/*"
       ]
     }
   }

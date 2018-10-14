@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {PresentMember} from '../PresentMember';
+import {PresenceService} from '../presence.service';
 
 @Component({
 	selector: 'mycfhn-presence-dashboard',
@@ -7,11 +9,17 @@ import {Component, OnInit} from '@angular/core';
 })
 export class PresenceDashboardComponent implements OnInit {
 
+	public members: PresentMember[];
 
-	constructor() {
+	constructor(private presence: PresenceService) {
 	}
 
 	ngOnInit() {
+		this.presence.getPresentMembers()
+			.subscribe(members => {
+				this.members = members;
+				console.log(this.members);
+			});
 	}
 
 }
