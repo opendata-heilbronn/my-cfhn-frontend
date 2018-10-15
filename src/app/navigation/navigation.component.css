@@ -1,0 +1,16 @@
+.nav-item {
+	flex: 1 1 auto;
+	padding: 4px 4px 4px 8px;
+}
+
+.nav-item.active {
+	background-color: white;
+}
+
+.nav-link {
+	color: white;
+}
+
+.active .nav-link {
+	color: black;
+}

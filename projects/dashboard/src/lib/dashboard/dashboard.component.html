@@ -1,0 +1,6 @@
+<h1 class="my-1">Dashboard</h1>
+<div class="row">
+	<div class="col-12" *ngFor="let dashboard of dashboards">
+		<lib-dashboard-entry [dashboardEntry]="dashboard"></lib-dashboard-entry>
+	</div>
+</div>

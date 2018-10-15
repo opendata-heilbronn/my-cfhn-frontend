@@ -1,0 +1,5 @@
+<ul class="navbar-nav mr-auto">
+	<li class="nav-item" routerLinkActive="active" *ngFor="let route of routes">
+		<a class="nav-link" [routerLink]="route.path">{{route.data.name}}</a>
+	</li>
+</ul>
