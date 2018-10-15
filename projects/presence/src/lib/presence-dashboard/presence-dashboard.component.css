@@ -1,0 +1,23 @@
+.profile-picture {
+	border-radius: 40px;
+}
+
+.indeterminate {
+	height: 2px;
+}
+
+.indeterminate .progress-bar {
+	position: relative;
+	animation: indefinite-progress-bar 1s infinite linear normal;
+	width: 25%;
+}
+
+@keyframes indefinite-progress-bar {
+	from {
+		left: -25%;
+
+	}
+	to {
+		left: 100%;
+	}
+}

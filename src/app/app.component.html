@@ -3,13 +3,13 @@
 		<div class="col-12 col-lg-2 p-0 bg-dark cfhn-navigation">
 			<div class="d-flex justify-content-between">
 				<h1 class="cfhn-brand p-1">MyCFHN</h1>
-				<button class="btn btn-dark d-md-none navbar-dark" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="btn btn-dark d-lg-none navbar-dark" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			</div>
 			<app-navigation [ngbCollapse]="isNavbarCollapsed"></app-navigation>
 		</div>
-		<div class="col-12 col-lg-10">
+		<div class="col-12 col-lg-10 py-2">
 			<router-outlet></router-outlet>
 		</div>
 	</div>

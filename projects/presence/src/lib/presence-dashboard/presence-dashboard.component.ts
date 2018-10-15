@@ -10,14 +10,21 @@ import {PresenceService} from '../presence.service';
 export class PresenceDashboardComponent implements OnInit {
 
 	public members: PresentMember[];
+	public loading: boolean = true;
 
 	constructor(private presence: PresenceService) {
 	}
 
 	ngOnInit() {
+		this.reload();
+	}
+
+	public reload(): void {
+		this.loading = true;
 		this.presence.getPresentMembers()
 			.subscribe(members => {
 				this.members = members;
+				this.loading = false;
 				console.log(this.members);
 			});
 	}
