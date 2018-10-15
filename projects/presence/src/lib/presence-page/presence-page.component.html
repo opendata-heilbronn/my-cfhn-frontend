@@ -1,0 +1,33 @@
+<h1 class="my-4">Anwesenheit</h1>
+<mycfhn-presence-dashboard></mycfhn-presence-dashboard>
+<h2 class="my-4">Einstellungen</h2>
+<div class="row">
+	<div class="col-12 col-lg-6">
+		<h3>Geräte</h3>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item d-flex flex-row justify-content-between" *ngFor="let mac of macs">
+				<div>{{mac}}</div>
+				<div>
+					<button type="button" class="btn btn-outline-danger" (click)="deleteMac(mac)">🗑</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="col-12 col-lg-6">
+		<h3>Gerät hinzufügen</h3>
+		<form #macForm="ngForm">
+			<div class="form-group">
+				<label for="mac">
+					MAC Addresse
+				</label>
+				<input type="text" class="form-control" id="mac" placeholder="00:11:22:33:44:55" [(ngModel)]="mac" name="mac" pattern="[0-9a-f]{2}(:[0-9a-f]{2}){5}" required minlength="17" maxlength="17" #macInput="ngModel">
+			</div>
+			<div class="d-flex form-group justify-content-end">
+				<button type="button" class="btn btn-primary" [disabled]="!macForm.valid" (click)="addMac()">Hinzufügen</button>
+			</div>
+			<div>
+				{{macForm.errors}}
+			</div>
+		</form>
+	</div>
+</div>
