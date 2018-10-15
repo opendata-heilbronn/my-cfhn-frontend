@@ -9,7 +9,7 @@ import {PresenceService} from '../presence.service';
 })
 export class PresenceDashboardComponent implements OnInit {
 
-	public members: PresentMember[];
+	public members: PresentMember[] = [];
 	public loading: boolean = true;
 
 	constructor(private presence: PresenceService) {
