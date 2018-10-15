@@ -7,8 +7,10 @@ import {AppComponent} from './app.component';
 import {DashboardModule} from 'dashboard';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavigationComponent} from './navigation/navigation.component';
-import {PresenceModule} from '../../projects/presence/src/lib/presence.module';
+import {PresenceModule} from 'presence';
 import {CookieService} from 'ngx-cookie-service';
+import {REDIRECT_URL} from 'authentication';
+import {environment} from '../environments/environment';
 
 @NgModule({
 	declarations: [
@@ -23,7 +25,8 @@ import {CookieService} from 'ngx-cookie-service';
 		NgbModule.forRoot(),
 	],
 	providers: [
-		CookieService
+		CookieService,
+		{provide: REDIRECT_URL, useValue: environment.redirectUrl}
 	],
 	bootstrap: [AppComponent]
 })
