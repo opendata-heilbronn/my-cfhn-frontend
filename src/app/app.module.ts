@@ -10,6 +10,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {PresenceModule} from '../presence/presence.module';
 import {CookieService} from 'ngx-cookie-service';
 import {AuthenticationModule} from '../authentication/authentication.module';
+import {VoucherModule} from '../voucher/voucher.module';
 
 @NgModule({
 	declarations: [
@@ -22,6 +23,7 @@ import {AuthenticationModule} from '../authentication/authentication.module';
 		AuthenticationModule,
 		DashboardModule,
 		PresenceModule,
+		VoucherModule,
 		NgbModule.forRoot(),
 	],
 	providers: [

@@ -1,0 +1,82 @@
+<h1>Account erstellen</h1>
+<div class="alert alert-danger" *ngIf="!voucher && !loading">
+	Token nicht gefunden. Wurde der Voucher vielleicht schon eingelöst?
+</div>
+<div class="alert alert-success" *ngIf="resultUsername.length > 0">
+	<h2 class="alert-heading">Registrierung erfolgreich</h2>
+	Dein neuer Benutzername ist <em>{{resultUsername}}</em>
+</div>
+<div class="card" *ngIf="voucher && resultUsername.length === 0">
+	<div class="card-header">
+		<h2 class="card-title">
+			Account-Angaben
+		</h2>
+	</div>
+	<div class="card-body">
+		<form #memberDataForm="ngForm" [ngClass]="{'was-validated': memberDataForm.dirty}">
+			<div class="form-group">
+				<label for="email">
+					Email
+				</label>
+				<input type="email" class="form-control" disabled id="email" name="email" [(ngModel)]="voucher.mail"
+					   #mail="ngModel">
+				<small>Deine Email wurde bei der Erstellung der Einladung festgelegt. Falls diese falsch ist, wende dich
+					bitte an den Vorstand
+				</small>
+			</div>
+			<div class="form-group">
+				<label for="username">
+					Benutzername
+				</label>
+				<input type="text" class="form-control" id="username" required name="username"
+					   [(ngModel)]="voucherRedeeming.username">
+				<small>Falls du bereits beim Presence-Service registriert bist, verwende bitte diesen Benutzernamen
+				</small>
+			</div>
+			<div class="form-group">
+				<label for="fullname">
+					Voller Name
+				</label>
+				<input type="text" class="form-control" id="fullname" required name="fullname" pattern=".* .*"
+					   [(ngModel)]="voucherRedeeming.fullName">
+				<small>Format: Vorname Nachname</small>
+			</div>
+			<div class="form-group">
+				<label for="birthday">
+					Geburtstag
+				</label>
+				<input type="date" class="form-control" id="birthday" required name="birthday"
+					   [(ngModel)]="voucherRedeeming.birthday">
+				<small>Format: YYYY-MM-DD, wenn kein Datepicker vorhanden</small>
+			</div>
+			<div class="form-group">
+				<label for="password">
+					Passwort
+				</label>
+				<input type="password" class="form-control" id="password" required name="password" minlength="8"
+					   [(ngModel)]="voucherRedeeming.password" #password>
+				<small>Bitte wähle ein sicheres Passwort, benutze am Besten einen Passwortmanager</small>
+			</div>
+			<div class="form-group">
+				<label for="password-repeat">
+					Passwortwiederholung
+				</label>
+				<div class="input-group">
+					<input type="password" class="form-control" id="password-repeat" required minlength="8" #passwordRepeat ngModel
+						   name="password-repeat" [ngClass]="{'invalid': password.value !== passwordRepeat.value}">
+					<div class="input-group-append">
+						<span class="text-success input-group-text"
+							  *ngIf="!passwordRepeat.invalid && password.value === passwordRepeat.value">✓</span>
+						<span class="text-danger input-group-text"
+							  *ngIf="passwordRepeat.invalid || password.value !== passwordRepeat.value">❌</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="card-footer">
+		<button type="button" class="btn btn-primary"
+				[disabled]="!memberDataForm.valid || password.value !== passwordRepeat.value" (click)="redeem()">Absenden
+		</button>
+	</div>
+</div>

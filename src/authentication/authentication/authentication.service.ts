@@ -22,6 +22,10 @@ export class AuthenticationService {
 		return data.exp > now;
 	}
 
+	public hasAnyGroup(groups: string[]) {
+		return groups.some(rg => this.getTokenData().groups.includes(`cn=${rg},ou=groups,dc=cfhn,dc=it`))
+	}
+
 	public getTokenData(): TokenData {
 		const cookie = this.cookies.get('cfhn');
 		const parts = cookie.split('.');
