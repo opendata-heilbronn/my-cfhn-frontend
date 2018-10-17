@@ -4,13 +4,12 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-import {DashboardModule} from 'dashboard';
+import {DashboardModule} from '../dashboard/dashboard.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavigationComponent} from './navigation/navigation.component';
-import {PresenceModule} from 'presence';
+import {PresenceModule} from '../presence/presence.module';
 import {CookieService} from 'ngx-cookie-service';
-import {REDIRECT_URL} from 'authentication';
-import {environment} from '../environments/environment';
+import {AuthenticationModule} from '../authentication/authentication.module';
 
 @NgModule({
 	declarations: [
@@ -20,13 +19,13 @@ import {environment} from '../environments/environment';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		AuthenticationModule,
 		DashboardModule,
 		PresenceModule,
 		NgbModule.forRoot(),
 	],
 	providers: [
-		CookieService,
-		{provide: REDIRECT_URL, useValue: environment.redirectUrl}
+		CookieService
 	],
 	bootstrap: [AppComponent]
 })
