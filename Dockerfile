@@ -2,9 +2,6 @@ FROM node:latest as builder
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install
-RUN npm run build -- authentication
-RUN npm run build -- dashboard
-RUN npm run build -- presence
 RUN npm run build -- --prod
 
 FROM nginx
