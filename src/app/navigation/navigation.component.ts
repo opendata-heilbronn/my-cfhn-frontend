@@ -16,6 +16,9 @@ export class NavigationComponent implements OnInit {
 			.filter(route => route.data && route.data.include && route.data.name)
 			.filter(route => {
 				if(route.data && route.data.groups) {
+					if(!this.authService.isAuthenticated()) {
+						return false;
+					}
 					return this.authService.hasAnyGroup(route.data.groups);
 				}
 				return true;
