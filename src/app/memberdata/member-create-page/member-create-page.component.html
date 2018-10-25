@@ -1,0 +1,122 @@
+<h1>Mitglied hinzufügen</h1>
+<div class="alert alert-danger">
+	Die Registrierung neuer Mitglieder erfolgt hauptsächlich über <a class="alert-link"
+																	 routerLink="/voucher">Voucher</a>.
+	Diese Seite sollte nur benutzt werden, falls die Registrierung über Voucher nicht möglich ist.
+</div>
+
+<div class="alert alert-danger" *ngIf="error">
+	<h1 class="alert-heading">Fehler beim Erstellen</h1>
+	<hr>
+	<p>
+		{{error.message}}
+	</p>
+</div>
+
+<form #memberForm="ngForm" (submit)="createMember()">
+	<div class="card">
+		<div class="card-header">
+			<h2>Persönliche Daten</h2>
+		</div>
+		<div class="card-body">
+
+			<div class="form-group">
+				<label>
+					Name
+				</label>
+				<div class="row">
+					<div class="col">
+						<label for="member_firstname" class="sr-only">
+							Vorname
+						</label>
+						<input type="text" id="member_firstname" class="form-control" placeholder="Vorname" required
+							   name="firstName" ngModel>
+					</div>
+					<div class="col">
+						<label for="member_lastname" class="sr-only">
+							Nachname
+						</label>
+						<input type="text" id="member_lastname" class="form-control" placeholder="Nachname" required
+							   name="lastName" ngModel>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="member_username">
+					Benutzername (Präferenz)
+				</label>
+				<input type="text" id="member_username" class="form-control" placeholder="Benutzername" required
+					   name="usernamePreference" ngModel>
+			</div>
+
+			<div class="form-group">
+				<label for="member_mail">
+					Mail
+				</label>
+				<input type="text" id="member_mail" class="form-control" placeholder="Mail" required name="mail"
+					   ngModel>
+			</div>
+
+			<div class="form-group">
+				<label for="member_entryDate">
+					Beitrittsdatum
+				</label>
+				<input type="date" id="member_entryDate" class="form-control" required name="entryDate" ngModel>
+			</div>
+
+			<div class="form-group">
+				<label for="member_phone">
+					Telefonnr.
+				</label>
+				<input type="tel" id="member_phone" class="form-control" name="phone" ngModel>
+			</div>
+
+			<div class="form-group">
+				<label for="member_address">
+					Addresse
+				</label>
+				<textarea class="form-control" id="member_address" name="address" ngModel></textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="member_usertype">
+					Benutzertyp
+				</label>
+				<select class="form-control" id="member_usertype" required name="userType" ngModel>
+					<option value="member">Mitglied</option>
+					<option value="tech-user">Technischer Benutzer</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="member_birthday">
+					Geburtstag
+				</label>
+				<input type="date" class="form-control" id="member_birthday" required name="birthday" ngModel>
+			</div>
+
+			<div class="form-group">
+				<label for="member_password">
+					Passwort
+				</label>
+				<input type="password" class="form-control" id="member_password" required name="password" ngModel>
+			</div>
+
+			<div class="form-group">
+				<label for="member_membertype">
+					Mitgliedstyp
+				</label>
+				<select class="form-control" id="member_membertype" required name="memberType" ngModel>
+					<option value="ACTIVE_MEMBER">Aktives Mitglied</option>
+					<option value="PASSIVE_MEMBER">Passives Mitglied</option>
+					<option value="CORPORATE_MEMBER">Firmenmitglied</option>
+				</select>
+			</div>
+
+		</div>
+		<div class="card-footer">
+			<button type="submit" class="btn btn-primary" [disabled]="!memberForm.valid">Erstellen</button>
+		</div>
+	</div>
+</form>

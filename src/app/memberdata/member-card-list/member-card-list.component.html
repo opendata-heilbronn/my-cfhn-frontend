@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-12 col-sm-6 col-lg-3 col-xl-2" *ngFor="let member of members">
+		<div class="card my-2" [ngClass]="{'border-success': member.boardMember}">
+			<img class="card-img-top" [src]="getProfilePicture(member.username)">
+			<div class="card-body">
+				<h5 class="card-title">
+					{{member.fullName}}
+					<span class="badge badge-success mx-1" *ngIf="member.boardMember">Vorstand</span>
+					<span class="badge badge-danger mx-1" *ngIf="member.admin">Admin</span>
+				</h5>
+				<h6 class="card-title text-muted">
+					@{{member.username}}
+				</h6>
+				<p class="card-text"><a [href]="'mailto:' + member.mail">{{member.mail}}</a></p>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item d-flex justify-content-between">
+					<div>Geburtsdatum</div>
+					<div>{{member.birthday | date: 'dd.MM.yy'}}</div>
+				</li>
+				<li class="list-group-item d-flex justify-content-between">
+					<div>Beitritt</div>
+					<div>{{member.entryDate | date: 'dd.MM.yy'}}</div>
+				</li>
+				<li class="list-group-item d-flex justify-content-between" *ngIf="member.phone">
+					<div>Telefon</div>
+					<div><a [href]="'tel:' + member.phone" target="_blank">{{member.phone}}</a></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

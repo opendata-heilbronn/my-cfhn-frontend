@@ -1,0 +1,31 @@
+<table class="table table-striped">
+	<thead>
+	<tr>
+		<th sorted-table-head title="Username" keyName="username" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+		<th sorted-table-head title="Name" keyName="fullName" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+		<th sorted-table-head title="Beitritt" keyName="entryDate" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+		<th>Status</th>
+		<th sorted-table-head title="Geburtsdatum" keyName="birthday" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+		<th sorted-table-head title="Email" keyName="mail" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+		<th sorted-table-head title="Telefon" keyName="phone" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+		<th sorted-table-head title="Addresse" keyName="address" [sortedBy]="sortedBy" (sort)="sortBy($event)"></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let member of members" [ngClass]="{'table-secondary': member.techUser}">
+		<td>{{member.username}}</td>
+		<td>{{member.fullName}}</td>
+		<td>{{member.entryDate | date:'dd.MM.yy'}}</td>
+		<td>
+			<span class="badge badge-success mx-1" *ngIf="member.boardMember">Vorstand</span>
+			<span class="badge badge-danger mx-1" *ngIf="member.admin">Admin</span>
+			<span class="badge badge-info mx-1" *ngIf="member.techUser">Tech-User</span>
+			<span class="badge badge-secondary mx-1" *ngIf="!member.techUser">Mitglied</span>
+		</td>
+		<td>{{member.birthday | date:'dd.MM.yy'}} <span class="badge badge-secondary">{{getAge(member.birthday)}}</span></td>
+		<td>{{member.mail}}</td>
+		<td>{{member.phone}}</td>
+		<td [innerHtml]="member.address | nl2br:true"></td>
+	</tr>
+	</tbody>
+</table>
