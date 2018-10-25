@@ -1,0 +1,20 @@
+<h1>Mitgliederverwaltung</h1>
+
+<div class="btn-toolbar my-4">
+	<div class="btn-group mr-3">
+		<a class="btn btn-secondary" routerLink="new">Hinzufügen</a>
+	</div>
+	<div class="btn-group btn-group-toggle mr-3" ngbRadioGroup name="type" [(ngModel)]="viewtype">
+		<label ngbButtonLabel class="btn-secondary">
+			<input ngbButton type="radio" value="table"> Tabelle
+		</label>
+		<label ngbButtonLabel class="btn-secondary">
+			<input ngbButton type="radio" value="cards"> Karten
+		</label>
+	</div>
+</div>
+
+<ng-container [ngSwitch]="viewtype">
+	<app-member-table-list *ngSwitchCase="'table'" [members]="members"></app-member-table-list>
+	<app-member-card-list *ngSwitchCase="'cards'" [members]="members"></app-member-card-list>
+</ng-container>

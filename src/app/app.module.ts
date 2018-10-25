@@ -11,6 +11,7 @@ import {PresenceModule} from '../presence/presence.module';
 import {CookieService} from 'ngx-cookie-service';
 import {AuthenticationModule} from '../authentication/authentication.module';
 import {VoucherModule} from '../voucher/voucher.module';
+import {MemberdataModule} from './memberdata/memberdata.module';
 
 @NgModule({
 	declarations: [
@@ -24,6 +25,7 @@ import {VoucherModule} from '../voucher/voucher.module';
 		DashboardModule,
 		PresenceModule,
 		VoucherModule,
+		MemberdataModule,
 		NgbModule.forRoot(),
 	],
 	providers: [
