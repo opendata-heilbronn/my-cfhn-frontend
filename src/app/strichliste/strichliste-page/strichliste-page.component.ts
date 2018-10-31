@@ -3,7 +3,6 @@ import {StrichlisteService} from '../service/strichliste.service';
 import {StrichlisteUser} from '../service/StrichlisteUser';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PayConsumeModalComponent} from '../pay-consume-modal/pay-consume-modal.component';
-import {ReplaceProductModalComponent} from '../replace-product-modal/replace-product-modal.component';
 
 @Component({
 	selector: 'app-strichliste-page',
@@ -30,7 +29,6 @@ export class StrichlistePageComponent implements OnInit {
 			if (index !== -1) {
 				this.users[index] = result;
 			}
-			this.modalService.open(ReplaceProductModalComponent, {size: 'lg'});
 		}, err => this.error = err);
 	}
 }
