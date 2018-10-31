@@ -1,0 +1,23 @@
+.modal-fullsize.modal-dialog {
+	max-width: 100%;
+	margin: 16px;
+}
+
+.modal-fullsize.modal-content {
+	max-width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+	.modal-fullsize.modal-dialog {
+		margin: 0;
+	}
+}
+
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}

@@ -1,0 +1,74 @@
+<div class="modal-header">
+	<h2 class="modal-title">Einzahlung/Ausgabe hinzufügen</h2>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close(user)">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-12 col-md-6 order-2 order-md-1">
+			<h3>Einzahlen</h3>
+			<form (submit)="onPay()">
+				<div class="form-group">
+					<label for="strichliste_pay">Betrag</label>
+					<div class="input-group">
+						<input type="number" class="form-control text-right" id="strichliste_pay" name="payAmount"
+							   [(ngModel)]="payAmount" min="0" max="1000" step="0.01" required>
+						<div class="input-group-append">
+							<span class="input-group-text">€</span>
+						</div>
+					</div>
+				</div>
+				<div class="d-flex flex-row my-2 justify-content-end flex-wrap">
+					<button type="button" class="btn btn-light btn-lg m-1" (click)="payAmount = 1">1 €</button>
+					<button type="button" class="btn btn-light btn-lg m-1" (click)="payAmount = 2">2 €</button>
+					<button type="button" class="btn btn-light btn-lg m-1" (click)="payAmount = 5">5 €</button>
+					<button type="button" class="btn btn-light btn-lg m-1" (click)="payAmount = 10">10 €</button>
+					<button type="button" class="btn btn-light btn-lg m-1" (click)="payAmount = 20">20 €</button>
+					<button type="button" class="btn btn-light btn-lg m-1" (click)="payAmount = 50">50 €</button>
+				</div>
+				<div class="d-flex flex-row my-2 justify-content-end">
+					<button type="submit" class="btn btn-primary btn-lg">Einzahlen</button>
+				</div>
+			</form>
+		</div>
+		<div class="col-12 col-md-6 order-1 order-md-2">
+			<h3>Entnehmen</h3>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item d-flex flex-row justify-content-between" *ngFor="let product of products">
+					<label class="h2" [for]="product.id" (click)="takeSingle(product)">
+						{{product.name}}
+					</label>
+					<form class="form-inline">
+						<span class="h2 mr-2"><small class="text-muted">{{product.price / 100 | currency:'EUR'}}</small></span>
+						<div class="input-group input-group-lg">
+							<div class="input-group-prepend">
+								<button type="button" class="btn btn-secondary font-weight-bold"
+										(click)="takeProducts[product.id] = takeProducts[product.id] - 1"
+										[disabled]="takeProducts[product.id] === 0">-
+								</button>
+							</div>
+							<input type="number" class="form-control text-right" min="0" max="99"
+								   [(ngModel)]="takeProducts[product.id]" [name]="product.id" [id]="product.id"
+								   style="width: 48px">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-secondary font-weight-bold"
+										(click)="takeProducts[product.id] = takeProducts[product.id] + 1">+
+								</button>
+							</div>
+						</div>
+						<button class="btn btn-primary btn-lg mx-1 font-weight-bold" type="button" title="One-Click"
+								(click)="takeSingle(product)">1
+						</button>
+					</form>
+				</li>
+			</ul>
+			<div class="d-flex flex-row justify-content-end">
+				<button type="button" class="btn btn-primary" (click)="onTake()">Absenden</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-secondary" (click)="activeModal.close(user)">Schließen</button>
+</div>
