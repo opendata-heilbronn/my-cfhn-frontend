@@ -17,7 +17,7 @@ export class AuthenticationGuard implements CanActivate {
 		state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 		const authenticated = this.authService.isAuthenticated();
 		if(!authenticated) {
-			window.location.href = 'https://login.my.cfhn.it/?redirect=' + environment.redirectUrl;
+			window.location.href = 'https://login.my.cfhn.it/?redirect=' + encodeURIComponent(environment.redirectUrl + '/' + next.url);
 		}
 		return authenticated;
 	}
