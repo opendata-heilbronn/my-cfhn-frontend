@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {StrichlisteUser} from '../service/StrichlisteUser';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {StrichlisteService} from '../service/strichliste.service';
 import {StrichlisteProduct} from '../service/StrichlisteProduct';
+import {ReplaceProductModalComponent} from '../replace-product-modal/replace-product-modal.component';
 
 @Component({
 	selector: 'app-pay-consume-modal',
@@ -19,7 +20,7 @@ export class PayConsumeModalComponent implements OnInit {
 
 	public takeProducts: { [productId: string]: number };
 
-	constructor(public activeModal: NgbActiveModal, private strichlisteService: StrichlisteService) {
+	constructor(public activeModal: NgbActiveModal, private strichlisteService: StrichlisteService, private modalService: NgbModal) {
 	}
 
 	ngOnInit() {
@@ -41,6 +42,7 @@ export class PayConsumeModalComponent implements OnInit {
 	onTake() {
 		this.strichlisteService.addConsumption(this.user.username, this.takeProducts).subscribe(user => {
 			this.activeModal.close(user);
+			this.modalService.open(ReplaceProductModalComponent, {size: 'lg'});
 		}, err => {
 			console.error(err);
 			this.activeModal.dismiss(err);
@@ -50,6 +52,7 @@ export class PayConsumeModalComponent implements OnInit {
 	takeSingle(product: StrichlisteProduct) {
 		this.strichlisteService.addConsumption(this.user.username, {[product.id]: 1}).subscribe(user => {
 			this.activeModal.close(user);
+			this.modalService.open(ReplaceProductModalComponent, {size: 'lg'});
 		}, err => {
 			console.log(err);
 			this.activeModal.dismiss(err);
