@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,6 +12,9 @@ import {CookieService} from 'ngx-cookie-service';
 import {AuthenticationModule} from '../authentication/authentication.module';
 import {VoucherModule} from '../voucher/voucher.module';
 import {MemberdataModule} from './memberdata/memberdata.module';
+import {StrichlisteModule} from './strichliste/strichliste.module';
+import {registerLocaleData} from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 
 @NgModule({
 	declarations: [
@@ -26,12 +29,16 @@ import {MemberdataModule} from './memberdata/memberdata.module';
 		PresenceModule,
 		VoucherModule,
 		MemberdataModule,
+		StrichlisteModule,
 		NgbModule.forRoot(),
 	],
 	providers: [
-		CookieService
+		CookieService,
+		{provide: LOCALE_ID, useValue: 'de'}
 	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+
+registerLocaleData(localeDe, 'de');

@@ -1,4 +1,5 @@
 export const environment = {
 	production: true,
-	redirectUrl: 'https://my.cfhn.it'
+	redirectUrl: 'https://my.cfhn.it',
+	strichlisteUrl: 'https://strichliste.my.cfhn.it',
 };

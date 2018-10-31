@@ -1,0 +1,18 @@
+<h1>Strichliste</h1>
+
+<div class="alert alert-danger" *ngIf="error">{{error.message}}</div>
+
+<div class="row">
+	<div class="col-12 col-md-4 col-xl-3 col-lg-2" *ngFor="let user of users">
+		<div class="card my-1">
+			<div class="card-body d-flex flex-row" (click)="openModal(user)">
+				<img [src]="'https://memberdata.my.cfhn.it/user/'+ user.username +'/picture'" width="100"
+					 class="rounded mx-2">
+				<div class="text-center flex-grow-1">
+					<h2 class="card-title">{{user.username}}</h2>
+					<div class="h3 text-muted">{{user.outstandingBalance / 100 * -1 | currency:'EUR'}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

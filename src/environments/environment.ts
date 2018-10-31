@@ -4,7 +4,8 @@
 
 export const environment = {
 	production: false,
-	redirectUrl: 'http://local.my.cfhn.it:4200'
+	redirectUrl: 'http://local.my.cfhn.it:4200',
+	strichlisteUrl: 'http://local.my.cfhn.it:8080',
 };
 
 /*
