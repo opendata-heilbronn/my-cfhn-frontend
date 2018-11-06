@@ -1,0 +1,25 @@
+<div class="modal-header">
+	<h2>Gast hinzufügen</h2>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="alert alert-info">
+		Falls du bereits Mitglied bei Code for Heilbronn bist, <a href="https://t.me/patrick246" class="alert-link">beantrage
+		bitte einen Account</a>. Als <strong>Gast</strong> kannst Du dich hier eintragen.
+	</div>
+	<form #strichlisteGuestForm="ngForm" [ngClass]="{'was-validated': strichlisteGuestForm.dirty}">
+		<div class="form-group">
+			<label for="strichliste_username">Name</label>
+			<input class="form-control" type="text" id="strichliste_username" name="username" [(ngModel)]="username"
+				   required minlength="3" maxlength="50">
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" (click)="activeModal.close(username)" [disabled]="!strichlisteGuestForm.valid">
+		Hinzufügen
+	</button>
+	<button class="btn btn-secondary" (click)="activeModal.dismiss()">Abbrechen</button>
+</div>

@@ -28,4 +28,12 @@ export class StrichlisteService {
 	public pay(username: string, amount: number): Observable<StrichlisteUser> {
 		return this.http.post<StrichlisteUser>(`${environment.strichlisteUrl}/users/${username}/balance`, amount, {withCredentials: true});
 	}
+
+	public addGuest(guestName: string): Observable<StrichlisteUser> {
+		return this.http.post<StrichlisteUser>(`${environment.strichlisteUrl}/users`, {username: guestName}, {withCredentials: true});
+	}
+
+	public deleteGuest(guestName: string): Observable<StrichlisteUser> {
+		return this.http.delete<StrichlisteUser>(`${environment.strichlisteUrl}/users/${guestName}`, {withCredentials: true});
+	}
 }
