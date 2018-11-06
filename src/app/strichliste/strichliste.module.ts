@@ -6,6 +6,7 @@ import {PayConsumeModalComponent} from './pay-consume-modal/pay-consume-modal.co
 import {FormsModule} from '@angular/forms';
 import {ReplaceProductModalComponent} from './replace-product-modal/replace-product-modal.component';
 import {AuthenticationGuard} from '../../authentication/guard/authentication.guard';
+import {GuestAddModalComponent} from './guest-add-modal/guest-add-modal.component';
 
 @NgModule({
 	imports: [
@@ -23,8 +24,8 @@ import {AuthenticationGuard} from '../../authentication/guard/authentication.gua
 			}
 		])
 	],
-	entryComponents: [PayConsumeModalComponent, ReplaceProductModalComponent],
-	declarations: [StrichlistePageComponent, PayConsumeModalComponent, ReplaceProductModalComponent]
+	entryComponents: [PayConsumeModalComponent, ReplaceProductModalComponent, GuestAddModalComponent],
+	declarations: [StrichlistePageComponent, PayConsumeModalComponent, ReplaceProductModalComponent, GuestAddModalComponent]
 })
 export class StrichlisteModule {
 }

@@ -3,6 +3,7 @@ import {StrichlisteService} from '../service/strichliste.service';
 import {StrichlisteUser} from '../service/StrichlisteUser';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PayConsumeModalComponent} from '../pay-consume-modal/pay-consume-modal.component';
+import {GuestAddModalComponent} from '../guest-add-modal/guest-add-modal.component';
 
 @Component({
 	selector: 'app-strichliste-page',
@@ -45,5 +46,17 @@ export class StrichlistePageComponent implements OnInit, OnDestroy {
 
 	refresh() {
 		this.strichlisteService.getUserOverview().subscribe(users => this.users = users);
+	}
+
+	openGuestModal() {
+		this.modalService.open(GuestAddModalComponent, {size: 'lg'}).result.then(result => {
+			this.strichlisteService.addGuest(result)
+				.subscribe(result => {
+					this.users.push(result);
+				}, err => {
+					this.error = err;
+				});
+		}, () => {
+		});
 	}
 }
