@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h2 class="modal-title">Einzahlung/Ausgabe hinzufügen</h2>
+	<h2 class="modal-title">{{user.username}}</h2>
 	<button type="button" class="close" aria-label="Close" (click)="activeModal.close(user)">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -7,12 +7,17 @@
 <div class="modal-body">
 	<div class="row justify-content-center">
 		<div class="col-12">
-			<h3>Entnehmen</h3> 
-			<div class="d-flex flex-wrap justify-content-center">
-				<div class="p-2" *ngFor="let product of products">
+			<h3>Entnehmen</h3>
+			<div class="d-flex flex-wrap justify-content-center align-items-center">
+				<div class="p-2" *ngFor="let product of products$ | async">
 					<button class="btn btn-dark btn-lg mx-1 font-weight-bold" type="button" title="One-Click" (click)="takeSingle(product)">
 							{{product.name}} <br>
 							<span class="h2"><small>{{product.price / 100 | currency:'EUR'}}</small></span>
+					</button>
+				</div>
+				<div class="p-2">
+					<button class="btn btn-light btn-lg mx-1 font-weight-bold" type="button" (click)="reloadProducts()">
+						⟳
 					</button>
 				</div>
 			</div>
