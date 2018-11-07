@@ -4,11 +4,14 @@ import {StrichlisteUser} from './StrichlisteUser';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {StrichlisteProduct} from './StrichlisteProduct';
+import {publishReplay, refCount} from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class StrichlisteService {
+
+	private products$ = null;
 
 	constructor(private http: HttpClient) {
 	}
@@ -18,7 +21,19 @@ export class StrichlisteService {
 	}
 
 	public getProducts(): Observable<StrichlisteProduct[]> {
-		return this.http.get<StrichlisteProduct[]>(environment.strichlisteUrl + '/products', {withCredentials: true});
+		if (!this.products$) {
+			this.products$ = this.http.get<StrichlisteProduct[]>(environment.strichlisteUrl + '/products', {withCredentials: true})
+				.pipe(
+					publishReplay(1),
+					refCount()
+				);
+		}
+		return this.products$;
+	}
+
+	public forceReloadProducts(): Observable<StrichlisteProduct[]> {
+		this.products$ = null;
+		return this.getProducts();
 	}
 
 	public addConsumption(username: string, products: { [productId: string]: number }): Observable<StrichlisteUser> {
