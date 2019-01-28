@@ -1,0 +1,68 @@
+<div class="card" *ngIf="item; else loading">
+	<div class="card-header">
+		#{{item.id}}
+		<span *ngIf="item.stickerPresent" title="Sticker vorhanden">#️⃣</span>
+	</div>
+	<div class="card-body">
+		<h3 class="card-title">{{item.name}}</h3>
+		<h4 class="card-subtitle text-muted mb-2">{{item.model}}</h4>
+		<h4 class="card-subtitle text-muted mb-2">{{item.serial}}</h4>
+		<h5 class="card-subtitle text-muted mb-2" *ngIf="item.place">{{item.place.name}}</h5>
+		<p class="card-text">
+			{{item.notes}}
+		</p>
+	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item list-group-item-action" (click)="inventoryAddMode()">
+			<ng-container *ngIf="!newEntryMode; else newEntry">
+				Neuer Eintrag...
+			</ng-container>
+			<ng-template #newEntry>
+				<form class="form-inline justify-content-between align-items-center"
+					  (ngSubmit)="addNewEntry(newEntryForm)" #newEntryForm="ngForm">
+					<div>{{now() | date:'yyyy-MM-dd HH:mm'}}</div>
+					<label for="inventoryNewCount" class="sr-only">Anzahl</label>
+					<div>
+						<input type="number" id="inventoryNewCount" min="0" class="form-control mr-3"
+							   #newEntryFormControl required name="amount" ngModel>
+						<button type="submit" class="btn btn-primary">
+							<ng-container *ngIf="!submittingNewEntry; else submittingHistoryEntry">
+								Speichern
+							</ng-container>
+							<ng-template #submittingHistoryEntry>
+								<span class="spinner-border spinner-border-sm"></span>
+							</ng-template>
+						</button>
+					</div>
+				</form>
+			</ng-template>
+		</li>
+		<ng-container *ngFor="let entry of itemHistory; let first = first; let index = index">
+			<li class="list-group-item d-flex justify-content-between align-items-center"
+				*ngIf="index < maxHistoryCount">
+
+				<div>{{entry.id.dateTime | date:'yyyy-MM-dd HH:mm'}}</div>
+				<div *ngIf="entry.username">{{entry.username}}</div>
+				<div class="badge"
+					 [ngClass]="{'badge-primary': first, 'badge-secondary': !first}">{{entry.amount}}</div>
+			</li>
+		</ng-container>
+		<li *ngIf="itemHistory.length > maxHistoryCount" (click)="showMoreHistory()"
+			class="list-group-item list-group-item-action">
+			Mehr...
+		</li>
+		<li *ngIf="maxHistoryCount != defaultHistoryCount" (click)="hideHistory()"
+			class="list-group-item list-group-item-action">
+			Verstecken
+		</li>
+	</ul>
+</div>
+
+<ng-template #loading>
+	Loading...
+</ng-template>
+
+<ng-template #noplace>
+	<h5 class="card-subtitle text-muted mb-2">Keine Ortsangabe</h5>
+</ng-template>
+
