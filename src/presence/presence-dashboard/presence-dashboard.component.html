@@ -10,7 +10,8 @@
 		<div *ngIf="members.length > 0 else nonePresent" class="d-flex flex-column flex-sm-row flex-wrap">
 			<div *ngFor="let member of members" class="d-flex flex-column mx-2 my-2 mx-sm-4">
 				<img [src]="'https://memberdata.my.cfhn.it/user/' + member.username + '/picture'" class="profile-picture mx-auto my-2" width="80">
-				<div class="text-center text-lg-left">{{member.name}}</div>
+				<div class="text-center text-lg-left">{{member.name}} <span
+					class="badge badge-secondary badge-pill">{{member.location}}</span></div>
 				<div class="text-center text-lg-left text-muted">@{{member.username}}</div>
 			</div>
 		</div>
