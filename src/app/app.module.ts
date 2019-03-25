@@ -16,6 +16,7 @@ import {StrichlisteModule} from './strichliste/strichliste.module';
 import {registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import {InventoryModule} from './inventory/inventory.module';
+import {InfrastructureModule} from './infrastructure/infrastructure.module';
 
 @NgModule({
 	declarations: [
@@ -32,6 +33,7 @@ import {InventoryModule} from './inventory/inventory.module';
 		MemberdataModule,
 		StrichlisteModule,
 		InventoryModule,
+		InfrastructureModule,
 		NgbModule.forRoot(),
 	],
 	providers: [

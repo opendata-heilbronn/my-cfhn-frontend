@@ -1,0 +1,130 @@
+<h1>Infrastruktur</h1>
+
+<div class="container-fluid">
+	<div class="row align-items-stretch">
+		<div class="col-12 col-lg-4">
+			<div class="card h-100 m-2">
+				<div class="card-header">
+					<h2>Baut Dashboards</h2>
+				</div>
+				<div class="card-body d-flex flex-column align-items-center">
+					<div class="card-text mb-4">
+						Mit Grafana können viele Datenquellen angebunden und visualisiert werden. So auch die
+						Solarinstallation auf der BUGA.
+					</div>
+
+					<iframe
+						src="https://grafana.cfhn.it/d-solo/KzmSYXQik/solar?refresh=1m&orgId=1&panelId=18&from=now-12h&to=now"
+						width="450" height="200" frameborder="0"></iframe>
+
+					<div class="card-text mt-4">
+						Der Login erfolgt über die MyCFHN-Logindaten. Ohne Login ist nur ein lesender Zugriff möglich.
+					</div>
+				</div>
+				<div class="card-footer">
+					<a class="btn btn-primary" href="https://grafana.cfhn.it" target="_blank">Grafana</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-lg-4">
+			<div class="card h-100 m-2">
+				<div class="card-header">
+					<h2>Baut Software</h2>
+				</div>
+				<div class="card-body">
+					<div class="card-text">
+						Auf Gitlab kann Quellcode abgelegt, gebaut und die Software deployt werden. Die Logindaten sind
+						dieselben wie bei MyCFHN.
+					</div>
+					<img src="assets/gitlab_logo.svg">
+				</div>
+				<div class="card-footer">
+					<a class="btn btn-primary" href="https://git.cfhn.it" target="_blank">Gitlab</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card h-100 m-2">
+				<div class="card-header">
+					<h2>Speichert Zeitserien</h2>
+				</div>
+				<div class="card-body">
+					InfluxDB ist eine Datenbank für Zeitserien, also Werte, die sich über einen Zeitraum verändern. Die
+					BUGA-Solardaten werden hier gespeichert und über Grafana visualisiert. InfluxDBs bitte per Telegram
+					bei patrick246 beantragen (siehe Button).
+				</div>
+				<img src="assets/influxdb_logo.svg">
+				<div class="card-footer">
+					<a class="btn btn-warning" href="https://t.me/patrick246" target="_blank">InfluxDB beantragen</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row align-items-stretch mt-4">
+		<div class="col-12 col-lg-4">
+			<div class="card h-100 m-2">
+				<div class="card-header">
+					<h2>Überwacht Dienste</h2>
+				</div>
+				<div class="card-body">
+					<p>
+						Prometheus speichert Metriken von Diensten, die diese im Prometheus-Format anbieten. Nach der
+						Erfassung können diese mit Queries weiterverarbeitet werden. Für Dienste, die diese nicht
+						bereitstellen, gibt es oft sogenannte Exporter, die den Job übernehmen.
+					</p>
+					<p>
+						Neue zu überwachende Dienste können auf dem Code for Heilbronn Server mit Docker-Labels
+						automatisch erkannt werden. Falls die Dienste außerhalb vom Server laufen, kann in Gitlab ein
+						neues Ziel hinzugefügt werden.
+					</p>
+				</div>
+				<div class="card-footer">
+					<a class="btn btn-primary mr-2" href="https://git.cfhn.it/infrastructure/prometheus"
+					   target="_blank">Prometheus (Gitlab)</a>
+					<a class="btn btn-warning" href="https://t.me/patrick246" target="_blank">patrick246 (Telegram)</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card h-100 m-2">
+				<div class="card-header">
+					<h2>Nutzt Azure</h2>
+				</div>
+				<div class="card-body">
+					<p>
+						Azure ist Microsofts Cloud-Angebot. Angeboten werden VMs, Container, Datenbanken, AI Services,
+						Speicherplatz und vieles mehr.
+					</p>
+					<p>
+						Für den Verein steht ein Freiguthaben von $5000 zur Verfügung. Da Azure nicht auf das
+						Freiguthaben limitiert ist, kann die Nutzung nur auf Anfrage erfolgen.
+					</p>
+				</div>
+				<div class="card-footer">
+					<a class="btn btn-primary mr-2" href="https://azure.microsoft.com/en-us/services/"
+					   target="_blank">Azure</a>
+					<a class="btn btn-warning" href="https://t.me/harmoniemand" target="_blank">
+						harmoniemand (Telegram)
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card h-100 m-2">
+				<div class="card-header">
+					<h2>Fehlt etwas?</h2>
+				</div>
+				<div class="card-body">
+					Für den Fall, dass diese Dienste nicht euren Anforderungen entsprechen, fragt gerne nach. Dann
+					finden wir zusammen eine Möglichkeit, etwas bereitzustellen.
+				</div>
+				<div class="card-footer">
+					<a class="btn btn-warning" href="https://t.me/patrick246" target="_blank">
+						patrick246 (Telegram)
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
