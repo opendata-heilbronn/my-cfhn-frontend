@@ -6,7 +6,8 @@ export const environment = {
 	production: false,
 	redirectUrl: 'http://local.my.cfhn.it:4200',
 	strichlisteUrl: 'http://local.my.cfhn.it:8080',
-	inventoryUrl: 'http://local.my.cfhn.it:8080'
+	inventoryUrl: 'http://local.my.cfhn.it:8080',
+	presenceUrl: 'http://local.my.cfhn.it:8080'
 };
 
 /*

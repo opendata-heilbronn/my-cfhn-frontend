@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PresentMember} from '../model/PresentMember';
+import {environment} from '../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,14 +13,14 @@ export class PresenceService {
 	}
 
 	public getPresentMembers(): Observable<PresentMember[]> {
-		return this.http.get<PresentMember[]>('https://presence.my.cfhn.it/presence/', {withCredentials: true});
+		return this.http.get<PresentMember[]>(`${environment.presenceUrl}/presence/`, {withCredentials: true});
 	}
 
 	public getMyRegisteredMacs(): Observable<string[]> {
-		return this.http.get<string[]>('https://presence.my.cfhn.it/registration/me', {withCredentials: true});
+		return this.http.get<string[]>(`${environment.presenceUrl}/registration/me`, {withCredentials: true});
 	}
 
 	public setRegisteredMacs(macs: string[]): Observable<string[]> {
-		return this.http.put<string[]>('https://presence.my.cfhn.it/registration/me', macs, {withCredentials: true});
+		return this.http.put<string[]>(`${environment.presenceUrl}/registration/me`, macs, {withCredentials: true});
 	}
 }

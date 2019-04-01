@@ -1,7 +1,9 @@
 <div class="card w-100">
 	<div class="card-header d-flex justify-content-between align-items-center">
 		<span>Anwesenheit</span>
-		<div><button class="btn btn-light" (click)="reload()">↺</button></div>
+		<div>
+			<button class="btn btn-light" (click)="reload()">↺</button>
+		</div>
 	</div>
 	<div class="progress indeterminate" *ngIf="loading">
 		<div class="progress-bar"></div>
@@ -9,10 +11,16 @@
 	<div class="card-body">
 		<div *ngIf="members.length > 0 else nonePresent" class="d-flex flex-column flex-sm-row flex-wrap">
 			<div *ngFor="let member of members" class="d-flex flex-column mx-2 my-2 mx-sm-4">
-				<img [src]="'https://memberdata.my.cfhn.it/user/' + member.username + '/picture'" class="profile-picture mx-auto my-2" width="80">
-				<div class="text-center text-lg-left">{{member.name}} <span
-					class="badge badge-secondary badge-pill">{{member.location}}</span></div>
-				<div class="text-center text-lg-left text-muted">@{{member.username}}</div>
+				<img [src]="'https://memberdata.my.cfhn.it/user/' + member.username + '/picture'"
+					 class="profile-picture mx-auto my-2" width="80">
+				<div class="text-center text-lg-left">
+					{{member.name}}
+					<span class="badge badge-secondary badge-pill">{{member.location}}</span>
+				</div>
+				<div class="text-center text-lg-left text-muted">
+					@{{member.username}}
+					<a class="badge badge-warning badge-pill" *ngIf="isPremium(member.username)" routerLink="/premium">PREMIUM</a>
+				</div>
 			</div>
 		</div>
 		<ng-template #nonePresent>
