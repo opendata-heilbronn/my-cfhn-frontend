@@ -11,6 +11,9 @@ export class PresenceDashboardComponent implements OnInit {
 
 	public members: PresentMember[] = [];
 	public loading: boolean = true;
+	private premiumMembers = [
+		'LeoDJ', 'patrick246', 'FranzImsch', 'patagona', 'harmoniemand', 'nickvergessen', 'nitegate'
+	];
 
 	constructor(private presence: PresenceService) {
 	}
@@ -27,6 +30,10 @@ export class PresenceDashboardComponent implements OnInit {
 				this.loading = false;
 				console.log(this.members);
 			});
+	}
+
+	public isPremium(username: string) {
+		return this.premiumMembers.includes(username);
 	}
 
 }
