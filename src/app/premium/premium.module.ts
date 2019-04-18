@@ -10,14 +10,18 @@ import {FoolComponent} from './fool/fool.component';
 		RouterModule.forChild([
 			{
 				path: 'premium',
-				component: PremiumComponent,
-				data: {
-					include: true,
-					name: 'CfHN Premium'
-				}
+				redirectTo: 'april-fools-2019'
 			},
 			{
 				path: 'premium/fool',
+				redirectTo: 'april-fools-2019/fool'
+			},
+			{
+				path: 'april-fools-2019',
+				component: PremiumComponent
+			},
+			{
+				path: 'april-fools-2019/fool',
 				component: FoolComponent
 			}
 		])
