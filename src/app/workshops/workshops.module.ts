@@ -11,7 +11,7 @@ import {ParticipationDatesComponent} from './overview/participation-dates/partic
 import {ValidationComponent} from './validation/validation.component';
 import {CreateWorkshopComponent} from './overview/workshop-overview/create-workshop/create-workshop.component';
 import {DateTimePickerComponent} from './overview/workshop-overview/create-workshop/date-time-picker/date-time-picker.component';
-import {NgbDatepickerModule, NgbPopoverModule, NgbRootModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbPaginationModule, NgbPopoverModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {SelectDateComponent} from './overview/workshop-detail/select-date/select-date.component';
 import {CancelWorkshopComponent} from './overview/workshop-detail/cancel-workshop/cancel-workshop.component';
 
@@ -55,7 +55,7 @@ import {CancelWorkshopComponent} from './overview/workshop-detail/cancel-worksho
 			}
 		]),
 		NgbPopoverModule,
-		NgbRootModule
+		NgbPaginationModule
 	],
 	declarations: [
 		OverviewComponent,
