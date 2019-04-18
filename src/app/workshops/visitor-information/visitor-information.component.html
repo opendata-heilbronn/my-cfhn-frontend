@@ -1,0 +1,31 @@
+<form (ngSubmit)="submit()">
+	<div class="modal-header">
+		<span class="font-weight-bold">Besucher-Informationen</span>
+	</div>
+	<div class="modal-body">
+		<p>
+			Vielen Dank für Dein Interesse. Um die Registrierung abschließen zu können, benötigen wir
+			noch einen Anzeigenamen und eine E-Mail-Adresse von Dir.
+		</p>
+
+		<p class="alert alert-info">
+			Falls Du Mitglied bei Code for Heilbronn bist, melde dich bitte an, dann müssen wir diese Daten nicht von
+			Dir abfragen.
+		</p>
+
+		<div class="form-group">
+			<label for="visitor_displayName">Anzeigename</label>
+			<input type="text" name="displayName" id="visitor_displayName" class="form-control"
+				   [(ngModel)]="displayName" required minlength="3">
+		</div>
+
+		<div class="form-group">
+			<label for="visitor_email">E-Mail-Adresse</label>
+			<input type="email" name="email" id="visitor_email" class="form-control" [(ngModel)]="email" required email>
+		</div>
+	</div>
+	<div class="modal-footer d-flex justify-content-end align-items-center">
+		<button class="btn btn-secondary" type="button" (click)="modal.dismiss()">Abbrechen</button>
+		<button class="btn btn-primary" type="submit">Absenden</button>
+	</div>
+</form>

@@ -1,0 +1,151 @@
+<div class="alert alert-danger" *ngIf="error">
+	{{error}}
+</div>
+
+<div class="container-fluid" *ngIf="workshop$ | async; let workshop; else loadingOrError">
+	<h1 class="my-3" *ngIf="!editMode">{{workshop.topic}} Workshop</h1>
+	<div class="form-group my-3" *ngIf="editMode">
+		<input type="text" class="form-control font-weight-bold" name="topic" [(ngModel)]="editWorkshop.topic">
+	</div>
+	<div class="row">
+		<div class="col-12 col-lg-8">
+			<p class="alert alert-info" *ngIf="workshop.finalDate">
+				Der Termin wurde auf den <span
+				class="font-weight-bold">{{workshop.finalDate | date: 'dd.MM.yyyy HH:mm'}}</span> gelegt.
+			</p>
+			<p style="white-space: pre-line" *ngIf="!editMode">{{workshop.description}}</p>
+			<form class="form-group">
+				<textarea class="form-control" name="description" rows="14" [(ngModel)]="editWorkshop.description"
+						  *ngIf="editMode"></textarea>
+			</form>
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="card mb-2">
+				<div class="card-header">Organisator</div>
+				<div class="card-body">
+					<div class="card-title">{{workshop.organizer.displayName}}</div>
+					<div class="card-subtitle text-muted">@{{workshop.organizer.username}}</div>
+				</div>
+			</div>
+			<div class="card my-2">
+				<div class="card-header">Teilnehmer</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item" *ngFor="let participant of getParticipants(workshop)">
+						{{participant.displayName}}
+					</li>
+				</ul>
+				<div *ngIf="getParticipants(workshop).length === 0" class="card-body text-muted">Keine Teilnehmer</div>
+			</div>
+			<div class="card my-2" *ngIf="workshop.basedOn">
+				<div class="card-header">Interesse</div>
+				<div class="card-body">Organisiert aus Interesse <a
+					[routerLink]="['..', '..', 'interest', workshop.basedOn.id]">{{workshop.basedOn.topic}}</a></div>
+			</div>
+			<button class="btn btn-block btn-primary"
+					(click)="participate(workshop)" *ngIf="username !== workshop.organizer.username && !editMode">
+				Teilnehmen
+			</button>
+			<button class="btn btn-block btn-success"
+					(click)="selectDate(workshop)"
+					*ngIf="!editMode && !workshop.finalDate && username === workshop.organizer.username">
+				Datum festlegen
+			</button>
+			<button class="btn btn-block btn-danger"
+					(click)="cancelWorkshop(workshop)"
+					*ngIf="!editMode && workshop.finalDate && username !== null && username === workshop.organizer.username">
+				Absagen
+			</button>
+			<button class="btn btn-block btn-secondary"
+					(click)="edit(workshop)"
+					[disabled]="workshop.finalDate"
+					[title]="workshop.finalDate ? 'Ein Workshop mit finalem Datum kann nicht bearbeitet werden.' : ''"
+					*ngIf="username !== null && username === workshop.organizer.username && !editMode">
+				Bearbeiten
+			</button>
+			<button class="btn btn-block btn-primary" *ngIf="editMode && !saving" (click)="submit(workshop.id)">
+				Speichern
+			</button>
+			<div class="progress my-3" *ngIf="editMode && saving">
+				<div class="progress-bar progress-bar-striped progress-bar-animated w-50"
+					 [class.bg-danger]="error"></div>
+			</div>
+			<button class="btn btn-block btn-secondary" *ngIf="editMode" (click)="cancelEdit()">
+				Abbrechen
+			</button>
+		</div>
+	</div>
+	<h2 class="my-2" *ngIf="!workshop.finalDate && !editMode">Mögliche Termine</h2>
+	<div class="row" *ngIf="!workshop.finalDate && !editMode">
+		<div class="col-6 col-lg-3" *ngFor="let date of workshop.possibleDates | keyvalue">
+			<div class="card my-2">
+				<div class="card-header">
+					<h3>{{date.key | date: 'dd.MM.yyyy HH:mm'}}</h3>
+				</div>
+				<div class="card-body text-center text-black-50" *ngIf="date.value.length === 0">
+					Keine Teilnehmer
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item d-flex justify-content-between align-items-center"
+						*ngFor="let participant of date.value">
+						<div>
+							{{participant.displayName}}
+							<span class="text-muted" *ngIf="participant.username"> @{{participant.username}}</span>
+							<span class="text-muted" *ngIf="!participant.username"> Besucher</span>
+						</div>
+						<div>
+						<span *ngIf="participant.validated" class="text-success"
+							  title="E-Mail validiert">&#x2714;</span>
+							<span *ngIf="!participant.validated" class="text-danger"
+								  title="E-Mail noch nicht validiert">&#x274C;</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<h2 class="my-2" *ngIf="workshop.finalDate && !editMode">Anmeldungen</h2>
+	<div class="row" *ngIf="workshop.finalDate && !editMode">
+		<div class="col-12">
+			<h3 class="my-4">Finales Datum: {{workshop.finalDate | date: 'dd.MM.yyyy HH:mm'}}</h3>
+			<div *ngIf="workshop.possibleDates[workshop.finalDate].length === 0"
+				 class="text-center text-black-50">Keine Teilnehmer
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item d-flex justify-content-between align-items-center"
+					*ngFor="let participant of workshop.possibleDates[workshop.finalDate]">
+					<div>
+						{{participant.displayName}}
+						<span class="text-muted" *ngIf="participant.username"> @{{participant.username}}</span>
+					</div>
+					<div>
+						<span [ngClass]="{'text-success': participant.validated, 'text-danger': !participant.validated}"
+							  [title]="participant.validated ? 'Bestätigt' : 'Unbestätigt'">
+							{{participant.validated ? '&#x2713;' : '&#x274C;'}}
+						</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row" *ngIf="editMode">
+		<div class="col-12 col-lg-8">
+			<h2 class="my-2">Mögliche Termine</h2>
+			<ul class="list-group">
+				<li class="list-group-item" *ngFor="let date of editWorkshop.possibleDates; let index = index">
+					<app-date-time-picker
+						[(datetime)]="editWorkshop.possibleDates[index]"
+						(onRemoved)="removeDate(index)"></app-date-time-picker>
+				</li>
+				<li class="list-group-item text-muted" style="cursor: pointer" (click)="addDate()">
+					<span class="font-weight-bold">+</span> Termin hinzufügen
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<ng-template #loadingOrError>
+	<div *ngIf="error$ | async" class="alert alert-danger my-4">
+		Fehler beim Laden der Workshop-Informationen.
+		<a class="alert-link" routerLink="../">Zur Workshop-Liste</a>
+	</div>
+</ng-template>

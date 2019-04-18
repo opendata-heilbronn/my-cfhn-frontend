@@ -1,0 +1,11 @@
+<div class="progress my-4" *ngIf="loading">
+	<div class="progress-bar progress-bar-striped progress-bar-animated w-50"></div>
+</div>
+
+<div class="alert alert-success my-4" *ngIf="success && !loading">
+	E-Mail-Addresse erfolgreich validiert!
+</div>
+
+<div class="alert alert-danger my-4" *ngIf="!success && !loading">
+	Fehler bei der Validierung der E-Mail-Addresse.
+</div>

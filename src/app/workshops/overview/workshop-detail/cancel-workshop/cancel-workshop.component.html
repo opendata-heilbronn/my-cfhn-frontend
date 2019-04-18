@@ -1,0 +1,11 @@
+<div class="modal-header font-weight-bold">
+	Workshoptermin absagen?
+</div>
+<div class="modal-body">
+	Möchtest du den Workshop {{workshop.topic}} am {{workshop.finalDate | date: 'dd.MM.yyy HH:mm'}} wirklich absagen?
+	Damit wird der festgelegte Termin entfernt. Alle Teilnehmer werden per E-Mail informiert.
+</div>
+<div class="modal-footer d-flex justify-content-end align-items-center">
+	<button class="btn btn-secondary" (click)="dismiss()">Abbrechen</button>
+	<button class="btn btn-danger" (click)="submit()">Absagen</button>
+</div>

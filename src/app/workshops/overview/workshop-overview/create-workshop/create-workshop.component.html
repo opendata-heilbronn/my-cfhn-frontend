@@ -1,0 +1,57 @@
+<div class="card my-2">
+	<form #createForm="ngForm">
+		<div class="card-body">
+			<div class="card-title">
+				<h2>Workshop erstellen</h2>
+			</div>
+			<div class="form-group">
+				<label for="workshop_topic">Thema</label>
+				<input type="text" name="topic" id="workshop_topic" class="form-control" minlength="5" required
+					   [(ngModel)]="workshop.topic" #topic="ngModel">
+				<div class="d-flex justify-content-end" *ngIf="topic.touched || topic.dirty">
+					<small class="form-text"
+						   [ngClass]="{'text-danger': workshop.topic.length < 5}">
+						{{workshop.topic.length}} / mind. 5
+					</small>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="workshop_description">Beschreibung</label>
+				<textarea [(ngModel)]="workshop.description" name="workshop_description" id="workshop_description"
+						  minlength="50"
+						  required class="form-control"
+						  #description="ngModel"></textarea>
+				<div class="d-flex justify-content-end" *ngIf="description.touched || description.dirty">
+					<small class="form-text"
+						   [ngClass]="{'text-danger': workshop.description.length < 50}">
+						{{workshop.description.length}} / mind. 50
+					</small>
+				</div>
+			</div>
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item font-weight-bold">Mögliche Termine</li>
+			<li class="list-group-item d-flex align-items-center"
+				*ngFor="let date of workshop.possibleDates; let index = index">
+				<label class="sr-only" [for]="date + '_workshop_date'">Termin Nr. {{index}}</label>
+				<app-date-time-picker
+					[(datetime)]="workshop.possibleDates[index]"
+					(onRemoved)="deleteDate(index)"
+					class="flex-grow-1"></app-date-time-picker>
+			</li>
+			<li class="list-group-item text-muted" (click)="addDate()" style="cursor: pointer;">
+				<span class="font-weight-bold">+</span> Termin hinzufügen
+			</li>
+		</ul>
+		<div class="card-body text-danger py-1"
+			 *ngIf="workshop.possibleDates.length === 0 && (createForm.touched || createForm.dirty)">
+			<small>Es muss mindestens ein Termin vorhanden sein.</small>
+		</div>
+		<div class="card-footer d-flex justify-content-end align-items-center">
+			<button class="btn btn-primary"
+					[disabled]="createForm.invalid || workshop.possibleDates.length === 0"
+					(click)="submit()">Erstellen
+			</button>
+		</div>
+	</form>
+</div>
