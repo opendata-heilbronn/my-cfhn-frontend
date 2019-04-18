@@ -1,0 +1,38 @@
+<div class="modal-header font-weight-bold">
+	Termin auswählen
+</div>
+<div class="modal-content">
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item d-flex justify-content-between align-content-center"
+			*ngFor="let date of dates; let index = index; let first = first">
+			<div class="custom-radio custom-control">
+				<input [id]="index + '_date'" type="radio" [value]="date" name="workshop_date"
+					   class="custom-control-input" [(ngModel)]="selectedDate">
+				<label [for]="index + '_date'"
+					   class="custom-control-label">{{date | date: 'EEEE, dd.MM.yyyy HH:mm'}}</label>
+			</div>
+			<div>
+				<span
+					class="badge"
+					[class.badge-success]="first"
+					[class.badge-secondary]="!first"
+					[ngbPopover]="popoverContent"
+					triggers="mouseenter:mouseleave"
+					placement="bottom"
+					popoverClass="participant-popover"
+				>{{workshop.possibleDates[date].length}}</span>
+				<ng-template #popoverContent>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item" *ngFor="let participant of workshop.possibleDates[date]">
+							{{participant.displayName}}
+						</li>
+					</ul>
+				</ng-template>
+			</div>
+		</li>
+	</ul>
+</div>
+<div class="modal-footer d-flex justify-content-end align-items-center">
+	<button class="btn btn-secondary" (click)="dismiss()">Abbrechen</button>
+	<button class="btn btn-primary" [disabled]="selectedDate === null" (click)="submit()">Festlegen</button>
+</div>

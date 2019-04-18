@@ -1,0 +1,80 @@
+<h1 class="my-3 mx-3">Interessen</h1>
+<div class="container-fluid" *ngIf="interests$ | async; let interests">
+	<div class="row">
+		<div class="col-12 col-lg-3" *ngIf="authenticated">
+			<div class="card my-2">
+				<form (ngSubmit)="createInterest()" [ngClass]="{'was-validated': interestForm.touched}"
+					  #interestForm="ngForm">
+					<div class="card-body">
+						<h2 class="card-title text-muted">Hinzufügen</h2>
+						<div class="form-group">
+							<label for="interest_topic">Thema</label>
+							<input type="text" id="interest_topic" name="topic" class="form-control"
+								   minlength="2" required [(ngModel)]="topic" placeholder="z.B. Arduino, Angular, Apps">
+						</div>
+					</div>
+					<div class="card-footer d-flex justify-content-end">
+						<button *ngIf="!loading" type="submit" class="btn btn-primary"
+								[disabled]="interestForm.invalid">Hinzufügen
+						</button>
+						<div class="progress">
+							<div class="progress-bar-animated w-100"></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-12 col-lg-3" *ngFor="let interest of interests.data">
+			<div class="card my-2">
+				<div class="card-body">
+					<h2 class="card-title">
+						{{interest.topic}}
+						<small class="badge badge-secondary">{{interest.supporters.length}}</small>
+					</h2>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<span class="font-weight-bold">
+							Interessenten
+						</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-center"
+						*ngFor="let supporter of interest.supporters">
+						<div>
+							{{supporter.displayName}}
+							<span class="badge badge-secondary" *ngIf="supporter.username">CfHN</span>
+						</div>
+						<div>
+							<span *ngIf="supporter.validated" class="text-success"
+								  title="E-Mail validiert">&#x2714;</span>
+							<span *ngIf="!supporter.validated" class="text-danger" title="E-Mail noch nicht validiert">&#x274C;</span>
+						</div>
+					</li>
+				</ul>
+				<div class="card-footer d-flex justify-content-end">
+					<ng-container *ngIf="isAlreadySupporter(interest) else noSupporter">
+						<button type="button" class="btn btn-secondary" (click)="removeInterest(interest)">Kein
+							Interesse mehr
+						</button>
+					</ng-container>
+					<ng-template #noSupporter>
+						<button type="button" class="btn btn-primary" (click)="addInterest(interest.id)">Interesse
+						</button>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-12">
+			<div class="d-flex justify-content-end">
+				<div class="pagination">
+					<ngb-pagination [collectionSize]="interests.totalItems"
+									[page]="(page$ | async) + 1"
+									[pageSize]="interests.pageSize"
+									(pageChange)="page$.next($event - 1)"></ngb-pagination>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

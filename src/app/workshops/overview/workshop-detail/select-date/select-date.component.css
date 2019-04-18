@@ -1,0 +1,8 @@
+:host ::ng-deep .participant-popover {
+	padding: 0;
+}
+
+:host ::ng-deep .participant-popover .popover-body {
+	padding: 0;
+	width: 256px;
+}

@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<span class="font-weight-bold">Mögliche Termine</span>
+</div>
+<div class="modal-body" *ngIf="workshop">
+	<p>
+		An folgenden Terminen kann der Workshop veranstaltet werden. Bitte wähle die Termine aus, an denen Du teilnehmen
+		kannst. Der Organisator wird dann einen einen dieser Termine auswählen. Darüber wirst du per E-Mail informiert.
+	</p>
+	<p class="alert alert-info" *ngIf="workshop.finalDate">
+		Für diesen Workshop wurde bereits ein finales Datum festgelegt. Du kannst dich nur noch für dieses anmelden.
+	</p>
+</div>
+<ul class="list-group list-group-flush" *ngIf="!workshop.finalDate">
+	<li class="list-group-item" *ngFor="let date of workshop.possibleDates | keyvalue">
+		<div class="custom-control custom-checkbox mx-3">
+			<input type="checkbox" class="custom-control-input" [id]="date.key + '_date_cb'"
+				   (click)="handleDateClick(date.key, cb.checked)" #cb>
+			<label class="custom-control-label"
+				   [for]="date.key + '_date_cb'">{{date.key | date:'EEEE, dd.MM.yyyy HH:mm'}}</label>
+		</div>
+	</li>
+</ul>
+<ul class="list-group list-group-flush" *ngIf="workshop.finalDate">
+	<li class="list-group-item">
+		<div class="custom-control custom-checkbox mx-3">
+			<input type="checkbox" class="custom-control-input" id="1_date_cb"
+				   (click)="handleDateClick(workshop.finalDate, cb.checked)" #cb>
+			<label class="custom-control-label"
+				   for="1_date_cb">{{workshop.finalDate | date: 'EEEE, dd.MM.yyyy HH:mm'}}</label>
+		</div>
+	</li>
+</ul>
+<div class="modal-footer d-flex justify-content-end align-items-center">
+	<button class="btn btn-secondary" type="button" (click)="dismiss()">Abbrechen</button>
+	<button class="btn btn-primary" type="submit" (click)="submit()" [disabled]="dates.length === 0">Absenden</button>
+</div>
