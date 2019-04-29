@@ -34,4 +34,8 @@ export class AuthenticationService {
 		}
 		return JSON.parse(atob(parts[1]));
 	}
+
+	public logout() {
+		this.cookies.delete('cfhn', '/', '.my.cfhn.it');
+	}
 }
