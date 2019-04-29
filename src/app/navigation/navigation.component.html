@@ -1,5 +1,11 @@
 <ul class="navbar-nav mr-auto">
+	<li *ngIf="!userData" class="nav-item">
+		<a href="https://login.my.cfhn.it/?redirect=https://my.cfhn.it" class="nav-link">Login</a>
+	</li>
 	<li class="nav-item" routerLinkActive="active" *ngFor="let route of routes">
 		<a class="nav-link" [routerLink]="route.path">{{route.data.name}}</a>
+	</li>
+	<li *ngIf="userData" class="nav-item text-white" (click)="logout()" style="cursor: pointer;">
+		<span class="nav-link">Abmelden - {{userData.username}}</span>
 	</li>
 </ul>
